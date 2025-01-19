@@ -44,7 +44,7 @@ $ python3 main.py tests/working/simple64/simple64.elf
 
 ## Supported Instructions
 
-> See `src/sandbox.py` for the exact list
+> See `src/sandbox.py` for the exact list  
 > Ref: https://ref.x86asm.net/coder64.html
 
 #### MOV
@@ -61,5 +61,5 @@ $ python3 main.py tests/working/simple64/simple64.elf
 ```
 
 ## References:
-https://code.google.com/archive/p/corkami/wikis/ELF101.wiki
+https://code.google.com/archive/p/corkami/wikis/ELF101.wiki  
 https://ref.x86asm.net/coder64.html
