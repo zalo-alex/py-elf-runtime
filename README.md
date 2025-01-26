@@ -1,7 +1,7 @@
-# Py ELF Sandbox
+# Py ELF Runtime
 
-A Python ELF x86-64 Sandbox, it parse, decompile on the fly and executes it in a Sandbox
-> (The sandbox has direct access to your operating system, the aim is not to create an isolated VM.)
+A Python ELF x86-64 Runtime, it parse, decompile on the fly and executes it in a Sandbox
+> (The runtime has direct access to your operating system, the aim is not to create an isolated VM.)
 
 ## Basic Usage
 
