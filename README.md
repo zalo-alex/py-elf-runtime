@@ -1,6 +1,6 @@
 # Py ELF Runtime
 
-A Python ELF x86-64 Runtime, it parse, decompile on the fly and executes it in a Sandbox
+A Python-based ELF x86-64 runtime that dynamically parses, decompiles, and executes ELF binaries.
 > (The runtime has direct access to your operating system, the aim is not to create an isolated VM.)
 
 ## Basic Usage
@@ -44,7 +44,7 @@ $ python3 main.py tests/working/simple64/simple64.elf
 
 ## Supported Instructions
 
-> See `src/sandbox.py` for the exact list  
+> See `src/runtime.py` for the exact list  
 > Ref: https://ref.x86asm.net/coder64.html
 
 #### MOV

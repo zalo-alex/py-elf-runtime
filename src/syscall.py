@@ -7,18 +7,18 @@ import os
 class Syscalls:
     
     @classmethod
-    def run(cls, sandbox):
-        tell = sandbox.f.tell()
+    def run(cls, runtime):
+        tell = runtime.f.tell()
         sc = Registers.get(Registers.RAX)
         calls = {
             0x1: cls.write,
             0x3C: cls.exit,
         }
         if sc in calls:
-            calls[sc](sandbox.f)
+            calls[sc](runtime.f)
         else:
             print(f"Unknown syscall {sc}")
-        sandbox.f.seek(tell)
+        runtime.f.seek(tell)
     
     @classmethod
     def write(cls, f):

@@ -63,10 +63,10 @@ class Instruction:
     
     p = NoPrefix
     
-    def __init__(self, prefix, op, sandbox):
+    def __init__(self, prefix, op, runtime):
         self.prefix = prefix
         self.op = op
-        self.sb = sandbox
+        self.rt = runtime
         
     def execute(self):
         raise NotImplementedError
@@ -77,10 +77,10 @@ class Instruction:
             (not prefix or (prefix.byte & cls.p.mask) == cls.p.match)
     
     @staticmethod
-    def find_instruction(prefix, op, sandbox):
+    def find_instruction(prefix, op, runtime):
         for cls in Instruction.__subclasses__():
             if cls.check(prefix, op):
-                return cls(prefix, op, sandbox)
+                return cls(prefix, op, runtime)
         return None
     
 # Ref: https://ref.x86asm.net/coder64.html
@@ -90,29 +90,29 @@ class MOV_B8(Instruction):
     po = 0xb8
     def execute(self):
         r = self.op & 0b00000111
-        Registers.set(r, self.sb.read(8))
+        Registers.set(r, self.rt.read(8))
 
 class MOV_C7(Instruction):
     po = 0xc7
     def execute(self):
-        modrm = self.sb.read(1)
+        modrm = self.rt.read(1)
         register = modrm & 0b00000111
         if self.prefix.w:
-            imm = self.sb.read(4)
+            imm = self.rt.read(4)
         else:
-            imm = self.sb.read(2)
+            imm = self.rt.read(2)
         Registers.set(register, imm)
 
 class SYSCALL_05(Instruction):
     po = 0x05
     p = _0F
     def execute(self):
-        Syscalls.run(self.sb)
+        Syscalls.run(self.rt)
 
 class XOR_31(Instruction):
     po = 0x31
     def execute(self):
-        modrm = self.sb.read(1)
+        modrm = self.rt.read(1)
         r1 = modrm & 0b00111000 >> 3
         r2 = modrm & 0b00000111
         Registers.set(r1, r1 ^ r2)
@@ -122,13 +122,13 @@ class ENDBR64(Instruction):
     po = 0x0F
     p = _F3
     def execute(self): 
-        self.sb.read(2)
+        self.rt.read(2)
 
 #
-#   SANDBOX CORE CLASS
+#   RUNTIME CORE CLASS
 #
 
-class Sandbox:
+class Runtime:
     
     def __init__(self, f, rip, byteorder):
         self.f = f

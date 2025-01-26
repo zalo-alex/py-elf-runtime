@@ -1,6 +1,6 @@
 from src.utils import debug, to_int, debug_value
 from src.headers import EI, e, p, sh
-from src.sandbox import Sandbox
+from src.runtime import Runtime
 
 class Parser:
     
@@ -175,7 +175,7 @@ class Parser:
         
         self.f.seek(code_offset)
         
-        debug(" ! SANDBOX")
+        debug(" ! Runtime")
         
-        sandbox = Sandbox(self.f, code_offset, self.byteorder)
-        sandbox.execute()
+        runtime = Runtime(self.f, code_offset, self.byteorder)
+        runtime.execute()
