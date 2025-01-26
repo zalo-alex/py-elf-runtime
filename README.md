@@ -50,8 +50,16 @@ $ python3 main.py tests/working/simple64/simple64.elf
 #### MOV
 `b8+r`, `c7`
 
+#### XOR
+`31`
+
 #### SYSCALL
 `05`
+
+## Ignored Instructions
+
+#### ENDBR64
+`f30f1efa`
 
 ## Supported Syscalls
 
